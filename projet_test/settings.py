@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'albums.middleware.SqlAlchemyMiddleware'
 )
 
 ROOT_URLCONF = 'projet_test.urls'
@@ -104,3 +105,8 @@ try:
     from local_settings import *
 except:
     pass
+
+# intialize the SQLAlchemy session class and make it available through the settings
+# /!\ to be placed after import of local_settings of course
+import albums.models
+DB_SESSION = albums.models.init_session(DATABASE)  # DB_SESSION need to be in capitals otherwise django ignores it...

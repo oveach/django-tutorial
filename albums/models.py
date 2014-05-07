@@ -1,25 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
 from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import sessionmaker, scoped_session
 
 # system dependencies: libmysqlclient-dev + python-dev
 # then install this mysql driver for python: pip install mysql-python
 
-# TODO: create and close db session in a middleware
-
-engine = create_engine("mysql://%s:%s@%s/%s?%s" % (
-    settings.DATABASE['LOGIN'],
-    settings.DATABASE['PASSWORD'],
-    settings.DATABASE['HOST'],
-    settings.DATABASE['DATABASE'],
-    settings.DATABASE['OPTIONS'],
-), echo = True)
-session_factory = sessionmaker(bind=engine)
-Session = scoped_session(session_factory)
+# this will be called by settings.py to initialize the session class only once
+def init_session(conf):
+    engine = create_engine("mysql://%s:%s@%s/%s?%s" % (
+        conf['LOGIN'],
+        conf['PASSWORD'],
+        conf['HOST'],
+        conf['DATABASE'],
+        conf['OPTIONS'],
+    ), echo = True)
+    return scoped_session(sessionmaker(bind=engine))
 
 Base = declarative_base()
 
