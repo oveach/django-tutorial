@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Delete album</h1>
+
+<p>Are you sure you want to delete this album?</p>
+<p><strong>Title:</strong> {{ album.title }}</p>
+<p><strong>Artist:</strong> {{ album.artist }}</p>
+
+<form action="{% url 'album_delete' album.id %}" method="post">
+    {% csrf_token %}
+    <p>
+        <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+        <button type="submit" name="cancel" class="btn btn-default">Cancel</button>
+    </p>
+</form>
+
+{% endblock %}
