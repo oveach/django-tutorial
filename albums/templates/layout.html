@@ -10,18 +10,18 @@
 <body>
 
     <div class="container">
-        {% block content %}{% endblock %}
-    </div>
 
-    <footer>
-        <div class="container">
+        {% block content %}{% endblock %}
+
+        <footer>
             Proudly powered by:
             <a href="http://www.python.org">Python <strong>{{ python_version }}</strong></a>
             | <a href="http://www.djangoproject.com">Django <strong>{{ django_version }}</strong></a>
             | <a href="http://sqlalchemy.org">SQLAlchemy <strong>{{ sqlalchemy_version }}</strong></a>
             | <a href="http://getbootstrap.com/">Bootstrap <strong>3</strong></a>
-        </div>
-    </footer>
+        </footer>
+
+    </div>
 
 </body>
 </html>
