@@ -34,23 +34,26 @@ Time to install the framework and libs our project will use:
     pip install django
     pip install sqlalchemy
     pip install mysql-python
-    
-### Create the Django project:
+
+Play with Django
+---
+
+### Create the Django project
 Follow these steps to start from scratch, otherwise the git repository contains everything needed.
 
     django-admin.py startproject projet_test
     
 It creates a little tree with some python files in it, mainly <code>manage.py</code> which is the central point to manage the django project.
+
 Then you need to create a django app that we name here <i>albums</i>:
 
     cd projet_test
     python manage.py startapp albums
 
-### Launch the dev server:
+### Launch the dev server
 Final step to launch our web app:
 
     python manage.py runserver
     
 Now your web app is accessible through url: http://localhost:8000/
-
-Congrats you're ready to code!
+To run this example, use the url: http://localhost:8000/albums
