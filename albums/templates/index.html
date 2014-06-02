@@ -9,6 +9,11 @@
         Add album
     </a>
 </p>
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">{{ message }}</div>
+{% endfor %}
+
 <table class="table table-striped">
     <thead>
         <tr>

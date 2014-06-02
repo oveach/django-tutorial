@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from models import Album
 from forms import AlbumForm
 
@@ -25,10 +26,15 @@ def album(request, album_id = None):
             return redirect('index')
         form = AlbumForm(request.POST)
         if form.is_valid():
+            # hydrate album object
             album.title = form.cleaned_data['title']
             album.artist = form.cleaned_data['artist']
+            # save it
             request.db_session.add(album)
             request.db_session.commit()
+            # show flash message to confirm update is OK
+            messages.success(request, "Album saved successfully")
+            # redirect to list of albums
             return redirect('index')
     elif album_id is not None:
         form = AlbumForm(album.__dict__)
@@ -45,6 +51,7 @@ def album_delete(request, album_id):
         else:
             request.db_session.query(Album).filter_by(id=album_id).delete()
             request.db_session.commit()
+            messages.success(request, "Album removed successfully")
             return redirect('index')
     else:
         album = request.db_session.query(Album).get(album_id)
